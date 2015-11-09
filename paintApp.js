@@ -29,13 +29,13 @@ function eraserMinus(){
 //Function to set pixel size normal
 
 function pixelNormal(){
-context.lineWidth=1;
+	context.lineWidth=1;
 }
 
 //Function to increase pixel size
 
 function pixelPlus(){
-		context.lineWidth=context.lineWidth+2;
+		context.lineWidth=context.lineWidth+1;
 }
 //Function to decrease pixel size
 
@@ -48,33 +48,41 @@ function pixelMinus(){
 //Fill initialization
 
 function fill(){
-fillFlag=1;
+	fillFlag=1;
 } 
 
 //Border initialization
 
 function border(){
-fillFlag=0;
+	fillFlag=0;
 }
 
 
 //funtion for Save save image as png file format
 
 function save() {
-  var imgg=canvas.toDataURL("image/png");
-  window.location = imgg;
+	  var imgg=canvas.toDataURL("image/png");
+	  window.location = imgg;
 }
 
 
 //function for clear screen 
 
 function clearScreen(){
-context.clearRect(0,0,canvas.width,canvas.height);
+	context.clearRect(0,0,canvas.width,canvas.height);
 }
 
+// functon for Color selection
+
+function selectColor(myColour){
+	
+	context.strokeStyle=myColour;
+	context.fillStyle=myColour;
+}
 //function for drawRectangle 
 
 function rectangle(){
+	
 	canvas.onmousedown=rectDown;
 	canvas.onmouseup=rectUp;
 	canvas.onmousemove=rectMove;
@@ -105,6 +113,7 @@ function rectangle(){
 //functon for darwPencil
 
 function pencil(){
+	
 	canvas.onmousedown=pencilDown;
 	canvas.onmouseup=pencilUp;
 	canvas.onmousemove=pencilMove;
@@ -120,17 +129,17 @@ function pencil(){
 		draw1=false;
 	}
 	function pencilMove(event){
-	if (draw1){
+	   if (draw1){
 		newX=event.clientX - canvas.getBoundingClientRect().left; 
 		newY=event.clientY - canvas.getBoundingClientRect().top;
    		context.beginPath();
    		context.moveTo(startX,startY);
-   		context.lineTo(newX,newY);
-   		context.stroke();
+   		context.lineTo(newX,newY);  		
+		context.stroke();
    		context.closePath();
    		startX=newX;
    		startY=newY;
-	 }
+	   }
 	}
 }
 
@@ -138,6 +147,7 @@ function pencil(){
 //function for darwLine 
 
 function line(){
+
 	canvas.onmousedown=linedown;
 	canvas.onmouseup=lineup;
 	canvas.onmousemove=linemove;
@@ -167,14 +177,13 @@ function line(){
 	}
 }
 
-
-
-//functon for circle tool
+//functon for draw circle
 
 function circle(){
 	canvas.onmousedown=circleDown;
 	canvas.onmouseup=circleUp;
 	canvas.onmousemove=circleMove;
+		
 	var draw3=false;
 	function circleDown(e){
  		imageData=context.getImageData(0,0,canvas.width,canvas.height);
@@ -205,20 +214,13 @@ function circle(){
 	}
 }
 
-// functon for Color selection
-
-function selectColor(myColour){
-	context.strokeStyle=myColour;
-	context.fillStyle=myColour;
-}
-
-
 //function for Brush 
 
 function brush(){
 	canvas.onmousedown=brushDown;
 	canvas.onmouseup=brushUp;
 	canvas.onmousemove=brushMove;
+	
 	var draw4=false;
 	function brushDown(e){
 		draw4=true;
@@ -232,7 +234,7 @@ function brush(){
 			y=event.clientY - canvas.getBoundingClientRect().top;
 		  	
  			context.beginPath();
- 			for(var i=0;i<5;i=i+0.1){
+ 			for(var i=0;i<5;i=i+0.3){
 				context.arc(x+i,y+i,2, 0, Math.PI*2, true);
 			}
 			context.closePath();
@@ -261,4 +263,48 @@ function eraser(){
 		}
 	}
 }
+//function for spray paint
+function spray(){
+	canvas.onmousedown=sprayDown;
+	canvas.onmouseup=sprayUp;
+	canvas.onmousemove=sprayMove;
+
+	var draw6=false;
+	function sprayDown(event){
+
+		startX=event.clientX - canvas.getBoundingClientRect().left; 
+		startY=event.clientY - canvas.getBoundingClientRect().top;
+		draw6=true;
+	}
+	function sprayUp(){
+		draw6=false;
+	}
+	function sprayMove(event){
+	   if (draw6){
+		newX=event.clientX - canvas.getBoundingClientRect().left; 
+		newY=event.clientY - canvas.getBoundingClientRect().top;
+		widthX=newX-startX;
+		widthY=newY-startY;
+		
+		var len = 5 + ( Math.random() * 5 | 0 );
+
+    		for( var i = 0; i < len; ++i ) {
+   		
+			context.beginPath();
+			var radius=Math.sqrt(widthX*widthX+widthY*widthY)/2;
+		
+			context.arc(
+	 	        startX + Math.cos( Math.random() * Math.PI * 2 ) * radius * Math.random(),
+	 	        startY + Math.sin( Math.random() * Math.PI * 2 ) * radius * Math.random(),
+	 	        1,0, Math.PI * 2, false);   		
+		
+			context.stroke();
+   			context.closePath();
+   			startX=newX;
+   			startY=newY;
+		}	 
+      	   }
+     }
+}
+
 
