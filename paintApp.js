@@ -1,7 +1,7 @@
 
-var fillFlag=0;//   initialise fillFlag zero for border
-var eraserWidth=10;
-
+var fillFlag=0;		//   initialise fillFlag zero for border
+var eraserWidth=10;	//   initialise eraser width
+ 
 //Canvas initialization
 
 var canvas = document.getElementById("canvas");
@@ -26,7 +26,7 @@ function eraserMinus(){
 		earserWidth = eraserWidth - 5;
 	}
 }
-//Function to make pixel size normal
+//Function to set pixel size normal
 
 function pixelNormal(){
 context.lineWidth=1;
@@ -45,13 +45,13 @@ function pixelMinus(){
 	}
 }
 
-//Fill checking
+//Fill initialization
 
 function fill(){
 fillFlag=1;
 } 
 
-//Border checking
+//Border initialization
 
 function border(){
 fillFlag=0;
@@ -102,7 +102,7 @@ function rectangle(){
 	}
 }
 
-//functon for darwPencil tool
+//functon for darwPencil
 
 function pencil(){
 	canvas.onmousedown=pencilDown;
@@ -110,9 +110,10 @@ function pencil(){
 	canvas.onmousemove=pencilMove;
 
 	var draw1=false;
-	function pencilDown(e){
-		startX=e.x;
-		startY=e.y;
+	function pencilDown(event){
+
+		startX=event.clientX - canvas.getBoundingClientRect().left; 
+		startY=event.clientY - canvas.getBoundingClientRect().top;
 		draw1=true;
 	}
 	function pencilUp(){
@@ -120,8 +121,8 @@ function pencil(){
 	}
 	function pencilMove(event){
 	if (draw1){
-   		newX =event.x;
-   		newY =event.y;
+		newX=event.clientX - canvas.getBoundingClientRect().left; 
+		newY=event.clientY - canvas.getBoundingClientRect().top;
    		context.beginPath();
    		context.moveTo(startX,startY);
    		context.lineTo(newX,newY);
@@ -134,28 +135,30 @@ function pencil(){
 }
 
 
-//function for darwLine tool
+//function for darwLine 
 
 function line(){
 	canvas.onmousedown=linedown;
 	canvas.onmouseup=lineup;
 	canvas.onmousemove=linemove;
 	var draw2=false;	
-	function linedown(e){
+	function linedown(event){
  		imageData=context.getImageData(0,0,canvas.width,canvas.height);
- 		startX=e.x;
- 		startY=e.y;
+
+		startX=event.clientX - canvas.getBoundingClientRect().left; 
+		startY=event.clientY - canvas.getBoundingClientRect().top;
  		draw2=true;
 	}
 	function lineup(e){
  		draw2=false;
 	}
-	function linemove(e){
+	function linemove(event){
  		if (draw2){
  			context.putImageData(imageData,0,0);
- 			endX=e.x;
- 			endY=e.y;
- 			context.beginPath();
+			endX=event.clientX - canvas.getBoundingClientRect().left; 
+			endY=event.clientY - canvas.getBoundingClientRect().top;
+ 			
+			context.beginPath();
  			context.moveTo(startX,startY);
  			context.lineTo(endX,endY);
  			context.stroke();
@@ -202,15 +205,15 @@ function circle(){
 	}
 }
 
-// functon for Color select tool
+// functon for Color selection
 
 function selectColor(myColour){
-context.strokeStyle=myColour;
-context.fillStyle=myColour;
+	context.strokeStyle=myColour;
+	context.fillStyle=myColour;
 }
 
 
-//function for Brush tool
+//function for Brush 
 
 function brush(){
 	canvas.onmousedown=brushDown;
@@ -225,8 +228,9 @@ function brush(){
 	}
 	function brushMove(e){
 		if (draw4){
- 			x=e.x;
-		  	y=e.y;
+ 			x=event.clientX - canvas.getBoundingClientRect().left; 
+			y=event.clientY - canvas.getBoundingClientRect().top;
+		  	
  			context.beginPath();
  			for(var i=0;i<5;i=i+0.1){
 				context.arc(x+i,y+i,2, 0, Math.PI*2, true);
@@ -237,7 +241,7 @@ function brush(){
 	}
 }
 
-//function for eraser tool
+//function for eraser 
 function eraser(){
 	canvas.onmousedown=eraserDown;
 	canvas.onmouseup=eraserUp;
@@ -251,9 +255,9 @@ function eraser(){
 	}
 	function eraserMove(e){
 		if(draw5){
-			x=e.x;
-			y=e.y;
-			context.clearRect(x,y,eraserWidth,eraserWidth);
+			startX=event.clientX - canvas.getBoundingClientRect().left; 
+			startY=event.clientY - canvas.getBoundingClientRect().top;
+			context.clearRect(startX,startY,eraserWidth,eraserWidth);
 		}
 	}
 }
