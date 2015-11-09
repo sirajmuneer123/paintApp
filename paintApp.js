@@ -253,7 +253,7 @@ function eraser(){
 	function eraserUp(e){
 		draw5=false;
 	}
-	function eraserMove(e){
+	function eraserMove(event){
 		if(draw5){
 			startX=event.clientX - canvas.getBoundingClientRect().left; 
 			startY=event.clientY - canvas.getBoundingClientRect().top;
