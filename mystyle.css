@@ -1,0 +1,37 @@
+body {
+    background-image: url("images.jpg");
+}
+#canvas{
+	border:5px solid grey;
+	background-color:#FFFFFF;
+	cursor:crosshair;"
+
+}
+#myTable{
+	cursor:pointer;
+}
+#nav {
+    line-height:30px;
+    background-color:#eeeeee;
+    height:500px;
+    width:120px;
+    float:left;
+    padding:5px;	      
+}
+#footer {
+    background-color:black;
+    color:white;
+    clear:both;
+    text-align:center;
+   padding:5px;
+}
+#myimage {
+    height: 50px;
+    width: 50px;
+background-color:white;
+	 	 
+}
+#mybutton {
+    height: 20px;
+    width: 110px;	
+}
