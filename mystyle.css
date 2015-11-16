@@ -1,6 +1,7 @@
 body {
     background-image: url("images.jpg");
 }
+
 #canvas{
 	border:5px solid grey;
 	background-color:#FFFFFF;
