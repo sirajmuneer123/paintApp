@@ -22,7 +22,7 @@ function eraserPlus(){
 // function to decrease eraser size
 
 function eraserMinus(){
-	if(eraserWidth>10){
+	if(eraserWidth > 10){
 		earserWidth = eraserWidth - 5;
 	}
 }
@@ -40,7 +40,7 @@ function pixelPlus(){
 //Function to decrease pixel size
 
 function pixelMinus(){
-	if(context.lineWidth>1){
+	if(context.lineWidth > 1){
 		context.lineWidth=context.lineWidth-1;
 	}
 }
@@ -61,8 +61,8 @@ function border(){
 //funtion for Save save image as png file format
 
 function save() {
-	  var imgg=canvas.toDataURL("image/png");
-	  window.location = imgg;
+	  var new_image=canvas.toDataURL("image/png");
+	  window.location = new_image;
 }
 
 
@@ -118,18 +118,18 @@ function pencil(){
 	canvas.onmouseup=pencilUp;
 	canvas.onmousemove=pencilMove;
 
-	var draw1=false;
+	var draw=false;
 	function pencilDown(event){
 
 		startX=event.clientX - canvas.getBoundingClientRect().left; 
 		startY=event.clientY - canvas.getBoundingClientRect().top;
-		draw1=true;
+		draw=true;
 	}
 	function pencilUp(){
-		draw1=false;
+		draw=false;
 	}
 	function pencilMove(event){
-	   if (draw1){
+	   if (draw){
 		newX=event.clientX - canvas.getBoundingClientRect().left; 
 		newY=event.clientY - canvas.getBoundingClientRect().top;
    		context.beginPath();
@@ -151,19 +151,19 @@ function line(){
 	canvas.onmousedown=linedown;
 	canvas.onmouseup=lineup;
 	canvas.onmousemove=linemove;
-	var draw2=false;	
+	var draw=false;	
 	function linedown(event){
  		imageData=context.getImageData(0,0,canvas.width,canvas.height);
 
 		startX=event.clientX - canvas.getBoundingClientRect().left; 
 		startY=event.clientY - canvas.getBoundingClientRect().top;
- 		draw2=true;
+ 		draw=true;
 	}
 	function lineup(e){
- 		draw2=false;
+ 		draw=false;
 	}
 	function linemove(event){
- 		if (draw2){
+ 		if (draw){
  			context.putImageData(imageData,0,0);
 			endX=event.clientX - canvas.getBoundingClientRect().left; 
 			endY=event.clientY - canvas.getBoundingClientRect().top;
@@ -184,18 +184,18 @@ function circle(){
 	canvas.onmouseup=circleUp;
 	canvas.onmousemove=circleMove;
 		
-	var draw3=false;
+	var draw=false;
 	function circleDown(e){
  		imageData=context.getImageData(0,0,canvas.width,canvas.height);
 		startX= e.x - this.offsetLeft;
- 		startY=e.y - this.offsetTop;
- 		draw3=true;
+ 		startY=e.y - this.offsetTop; 		
+		draw=true;
 	}
 	function circleUp(e){
-		draw3=false;
+		draw=false;
 	}
 	function circleMove(e){
-		if (draw3){
+		if (draw){
 			context.putImageData(imageData,0,0);
 		
 			rectWidth=(e.x - this.offsetLeft)-startX;
@@ -221,15 +221,15 @@ function brush(){
 	canvas.onmouseup=brushUp;
 	canvas.onmousemove=brushMove;
 	
-	var draw4=false;
+	var draw=false;
 	function brushDown(e){
-		draw4=true;
+		draw=true;
 	}
 	function brushUp(e){
-		draw4=false;
+		draw=false;
 	}
 	function brushMove(e){
-		if (draw4){
+		if (draw){
  			x=event.clientX - canvas.getBoundingClientRect().left; 
 			y=event.clientY - canvas.getBoundingClientRect().top;
 		  	
@@ -248,15 +248,15 @@ function eraser(){
 	canvas.onmousedown=eraserDown;
 	canvas.onmouseup=eraserUp;
 	canvas.onmousemove=eraserMove;
-	var draw5=false;	
+	var draw=false;	
 	function eraserDown(e){
-		draw5=true;
+		draw=true;
 	}
 	function eraserUp(e){
-		draw5=false;
+		draw=false;
 	}
 	function eraserMove(event){
-		if(draw5){
+		if(draw){
 			startX=event.clientX - canvas.getBoundingClientRect().left; 
 			startY=event.clientY - canvas.getBoundingClientRect().top;
 			context.clearRect(startX,startY,eraserWidth,eraserWidth);
@@ -269,18 +269,18 @@ function spray(){
 	canvas.onmouseup=sprayUp;
 	canvas.onmousemove=sprayMove;
 
-	var draw6=false;
+	var draw=false;
 	function sprayDown(event){
 
 		startX=event.clientX - canvas.getBoundingClientRect().left; 
 		startY=event.clientY - canvas.getBoundingClientRect().top;
-		draw6=true;
+		draw=true;
 	}
 	function sprayUp(){
-		draw6=false;
+		draw=false;
 	}
 	function sprayMove(event){
-	   if (draw6){
+	   if (draw){
 		newX=event.clientX - canvas.getBoundingClientRect().left; 
 		newY=event.clientY - canvas.getBoundingClientRect().top;
 		widthX=newX-startX;
