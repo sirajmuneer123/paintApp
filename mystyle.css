@@ -4,7 +4,7 @@ body {
 #canvas{
 	border:5px solid grey;
 	background-color:#FFFFFF;
-	cursor:crosshair;"
+	cursor:crosshair;
 
 }
 #myTable{
@@ -35,7 +35,7 @@ background-color:white;
     height: 31px;
     width: 110px;
     background-color: #8FBC8F;
-    border: 2px solid grey;
+    border: 3px solid grey;
     border-radius: 7px;	
     box-shadow: 5px 5px 5px #888888;
 }

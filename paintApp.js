@@ -87,20 +87,20 @@ function rectangle(){
 	canvas.onmouseup=rectUp;
 	canvas.onmousemove=rectMove;
 	var draw=false;
-	function rectDown(e){
+	function rectDown(event){
  		imageData=context.getImageData(0,0,canvas.width,canvas.height);
- 		startX= e.x - this.offsetLeft;
- 		startY=e.y - this.offsetTop;
+ 		startX= event.x - this.offsetLeft;
+ 		startY=event.y - this.offsetTop;
  		draw=true;
 	}
-	function rectUp(e){
+	function rectUp(){
 		draw=false;
 	}
-	function rectMove(e){
+	function rectMove(event){
 		if (draw){
 			context.putImageData(imageData,0,0);
-			rectWidth=(e.x - this.offsetLeft)-startX;
-			rectHeight=(e.y - this.offsetTop)-startY;
+			rectWidth=(event.x - this.offsetLeft)-startX;
+			rectHeight=(event.y - this.offsetTop)-startY;
 			if(fillFlag==0){			
 				context.strokeRect(startX,startY,rectWidth,rectHeight);
 			}else{
@@ -159,7 +159,7 @@ function line(){
 		startY=event.clientY - canvas.getBoundingClientRect().top;
  		draw=true;
 	}
-	function lineup(e){
+	function lineup(){
  		draw=false;
 	}
 	function linemove(event){
@@ -185,21 +185,21 @@ function circle(){
 	canvas.onmousemove=circleMove;
 		
 	var draw=false;
-	function circleDown(e){
+	function circleDown(event){
  		imageData=context.getImageData(0,0,canvas.width,canvas.height);
-		startX= e.x - this.offsetLeft;
- 		startY=e.y - this.offsetTop; 		
+		startX= event.x - this.offsetLeft;
+ 		startY=event.y - this.offsetTop; 		
 		draw=true;
 	}
-	function circleUp(e){
+	function circleUp(){
 		draw=false;
 	}
-	function circleMove(e){
+	function circleMove(event){
 		if (draw){
 			context.putImageData(imageData,0,0);
 		
-			rectWidth=(e.x - this.offsetLeft)-startX;
-			rectHeight=(e.y - this.offsetTop)-startY;
+			rectWidth=(event.x - this.offsetLeft)-startX;
+			rectHeight=(event.y - this.offsetTop)-startY;
 	 
 			var radius=Math.sqrt(rectWidth*rectWidth+rectHeight*rectHeight)/2;
 			context.beginPath();
@@ -222,20 +222,20 @@ function brush(){
 	canvas.onmousemove=brushMove;
 	
 	var draw=false;
-	function brushDown(e){
+	function brushDown(){
 		draw=true;
 	}
-	function brushUp(e){
+	function brushUp(){
 		draw=false;
 	}
-	function brushMove(e){
+	function brushMove(event){
 		if (draw){
- 			x=event.clientX - canvas.getBoundingClientRect().left; 
-			y=event.clientY - canvas.getBoundingClientRect().top;
+ 			startX=event.clientX - canvas.getBoundingClientRect().left; 
+			startY=event.clientY - canvas.getBoundingClientRect().top;
 		  	
  			context.beginPath();
  			for(var i=0;i<5;i=i+0.3){
-				context.arc(x+i,y+i,2, 0, Math.PI*2, true);
+				context.arc(startX+i,startY+i,2, 0, Math.PI*2, true);
 			}
 			context.closePath();
 			context.fill();
@@ -249,10 +249,10 @@ function eraser(){
 	canvas.onmouseup=eraserUp;
 	canvas.onmousemove=eraserMove;
 	var draw=false;	
-	function eraserDown(e){
+	function eraserDown(){
 		draw=true;
 	}
-	function eraserUp(e){
+	function eraserUp(){
 		draw=false;
 	}
 	function eraserMove(event){
